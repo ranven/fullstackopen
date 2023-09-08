@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ContactForm } from "./components/Form";
 import { Filter, FilteredContacts } from "./components/Filter";
+import { Notification } from "./components/Notification";
 import contactService from "./services/contacts";
 import axios from "axios";
 
@@ -9,6 +10,8 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [newFilter, setNewFilter] = useState("");
+  const [notification, setNotification] = useState("");
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     axios.get("http://localhost:3001/persons").then((res) => {
@@ -41,11 +44,13 @@ const App = () => {
                 p.id !== persons[existing].id ? p : updatedContact
               )
             );
+            displayNotification(`Updated ${newPerson.name}`);
           });
       }
     } else {
       contactService.createContact(newPerson).then((newContact) => {
         setPersons(persons.concat(newContact));
+        displayNotification(`Added new contact ${newPerson.name}`);
       });
     }
     setNewName("");
@@ -54,10 +59,28 @@ const App = () => {
 
   const deleteContact = (name, id) => {
     if (window.confirm(`Delete ${name}?`)) {
-      contactService.deleteContact(id).then(() => {
-        setPersons(persons.filter((p) => p.id !== id));
-      });
+      contactService
+        .deleteContact(id)
+        .then(() => {
+          setPersons(persons.filter((p) => p.id !== id));
+          displayNotification(`Deleted ${name}`);
+        })
+        .catch((err) => {
+          displayNotification(
+            `Information of ${name} has already been removed from server`,
+            true
+          );
+        });
     }
+  };
+
+  const displayNotification = (message, isError) => {
+    setError(isError);
+    setNotification(message);
+    setTimeout(() => {
+      setNotification("");
+      setError(false);
+    }, 4000);
   };
 
   const handleNameChange = (event) => {
@@ -75,6 +98,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={notification} isError={error}></Notification>
       <Filter filter={newFilter} onFilterChange={handleFilterChange}></Filter>
       <h2>Add a contact</h2>
       <ContactForm
