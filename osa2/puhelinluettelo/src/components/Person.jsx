@@ -1,7 +1,8 @@
-export const Person = ({ name, number, id }) => {
+export const Person = ({ name, number, id, handleDelete }) => {
   return (
     <li key={id}>
-      {name} {number}
+      {name} {number}{" "}
+      <button onClick={() => handleDelete(name, id)}>Delete</button>
     </li>
   );
 };

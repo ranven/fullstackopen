@@ -1,12 +1,12 @@
 export const ContactForm = ({
-  addPerson,
+  addContact,
   newName,
   handleNameChange,
   newNumber,
   handleNumberChange,
 }) => (
   <>
-    <form onSubmit={addPerson}>
+    <form onSubmit={addContact}>
       <div>
         Name: <input onChange={handleNameChange} value={newName} />
       </div>

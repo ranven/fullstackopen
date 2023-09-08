@@ -7,7 +7,7 @@ export const Filter = ({ filter, onFilterChange }) => (
   </>
 );
 
-export const FilteredContacts = ({ filter, persons }) => (
+export const FilteredContacts = ({ filter, persons, handleDelete }) => (
   <>
     {persons
       .filter(
@@ -17,12 +17,15 @@ export const FilteredContacts = ({ filter, persons }) => (
       )
       .map((person) => {
         return (
-          <Person
-            name={person.name}
-            number={person.number}
-            id={person.name}
-            key={person.name}
-          ></Person>
+          <>
+            <Person
+              name={person.name}
+              number={person.number}
+              id={person.id}
+              key={person.name}
+              handleDelete={handleDelete}
+            ></Person>
+          </>
         );
       })}
   </>
