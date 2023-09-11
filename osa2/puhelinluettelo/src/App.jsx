@@ -14,8 +14,8 @@ const App = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/api/persons").then((res) => {
-      setPersons(res.data);
+    contactService.getAllContacts().then((contacts) => {
+      setPersons(contacts);
     });
   }, []);
 
