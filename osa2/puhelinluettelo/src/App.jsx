@@ -14,7 +14,7 @@ const App = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/persons").then((res) => {
+    axios.get("http://localhost:3001/api/persons").then((res) => {
       setPersons(res.data);
     });
   }, []);
