@@ -26,23 +26,21 @@ const App = () => {
       number: newNumber,
     };
 
-    const existing = persons.findIndex(
+    const existing = persons.find(
       (p) => p.name.toLowerCase() === newPerson.name.toLowerCase()
     );
 
-    if (existing > 0) {
+    if (existing) {
       if (
         window.confirm(
           `${newPerson.name} is already added to phonebook, replace the old number with a new one?`
         )
       ) {
         contactService
-          .updateContact(persons[existing].id, newPerson)
+          .updateContact(existing.id, newPerson)
           .then((updatedContact) => {
             setPersons(
-              persons.map((p) =>
-                p.id !== persons[existing].id ? p : updatedContact
-              )
+              persons.map((p) => (p.id !== existing.id ? p : updatedContact))
             );
             displayNotification(`Updated ${newPerson.name}`);
           });

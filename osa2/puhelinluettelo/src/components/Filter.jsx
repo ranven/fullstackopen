@@ -17,15 +17,13 @@ export const FilteredContacts = ({ filter, persons, handleDelete }) => (
       )
       .map((person) => {
         return (
-          <>
-            <Person
-              name={person.name}
-              number={person.number}
-              id={person.id}
-              key={person.name}
-              handleDelete={handleDelete}
-            ></Person>
-          </>
+          <Person
+            name={person.name}
+            number={person.number}
+            id={person.id}
+            key={person.name}
+            handleDelete={handleDelete}
+          ></Person>
         );
       })}
   </>
