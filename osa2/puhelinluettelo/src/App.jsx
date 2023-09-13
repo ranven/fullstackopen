@@ -44,7 +44,7 @@ const App = () => {
             displayNotification(`Updated ${newPerson.name}`);
           })
           .catch((err) => {
-            displayNotification(err.response.data);
+            setError(err.response.data.error);
           });
       }
     } else {
@@ -55,7 +55,7 @@ const App = () => {
           displayNotification(`Added new contact ${newPerson.name}`);
         })
         .catch((err) => {
-          displayNotification(err.response.data);
+          setError(err.response.data.error);
         });
     }
     setNewName("");
