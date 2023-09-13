@@ -3,7 +3,6 @@ import { ContactForm } from "./components/Form";
 import { Filter, FilteredContacts } from "./components/Filter";
 import { Notification } from "./components/Notification";
 import contactService from "./services/contacts";
-import axios from "axios";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -43,13 +42,21 @@ const App = () => {
               persons.map((p) => (p.id !== existing.id ? p : updatedContact))
             );
             displayNotification(`Updated ${newPerson.name}`);
+          })
+          .catch((err) => {
+            displayNotification(err.response.data);
           });
       }
     } else {
-      contactService.createContact(newPerson).then((newContact) => {
-        setPersons(persons.concat(newContact));
-        displayNotification(`Added new contact ${newPerson.name}`);
-      });
+      contactService
+        .createContact(newPerson)
+        .then((newContact) => {
+          setPersons(persons.concat(newContact));
+          displayNotification(`Added new contact ${newPerson.name}`);
+        })
+        .catch((err) => {
+          displayNotification(err.response.data);
+        });
     }
     setNewName("");
     setNewNumber("");
@@ -63,7 +70,7 @@ const App = () => {
           setPersons(persons.filter((p) => p.id !== id));
           displayNotification(`Deleted ${name}`);
         })
-        .catch((err) => {
+        .catch(() => {
           displayNotification(
             `Information of ${name} has already been removed from server`,
             true
