@@ -51,11 +51,11 @@ describe("total likes", () => {
       __v: 0,
     },
   ]
-  test("when list has multiple blogs, returns the most liked blog", () => {
-    const result = listHelper.favoriteBlog(blogs)
+  test("when list has multiple blogs, returns the author with most blogs and the number of blogs", () => {
+    const result = listHelper.mostBlogs(blogs)
     expect(result).toEqual({
-      title: "Canonical string reduction",
-      likes: 12,
+      author: "Robert C. Martin",
+      blogs: 3,
     })
   })
 })
