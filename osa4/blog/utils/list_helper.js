@@ -35,9 +35,25 @@ const mostBlogs = (blogs) => {
   return authorsBlogs[authorsBlogs.length - 1]
 }
 
+const mostLikes = (blogs) => {
+  const reducer = (sum, item) => {
+    return sum + item.likes
+  }
+  let authorsBlogs = _(blogs)
+    .groupBy("author")
+    .map((listOfBlogs, author) => ({
+      author: author,
+      likes: _.reduce(listOfBlogs, reducer, 0),
+    }))
+    .sortBy("likes")
+    .value()
+  return authorsBlogs[authorsBlogs.length - 1]
+}
+
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
   mostBlogs,
+  mostLikes,
 }
