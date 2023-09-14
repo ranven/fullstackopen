@@ -79,6 +79,38 @@ test("new blog without title or url returns a 400 status code", async () => {
   await api.post("/api/blogs").send(noUrlBlog).expect(400)
 })
 
+test("can update blog", async () => {
+  const blogs = await helper.blogsInDb()
+  const blogToUpdate = blogs[0]
+  const newInfo = {
+    title: "Test",
+    author: blogToUpdate.author,
+    likes: 1000,
+    url: blogToUpdate.url,
+  }
+
+  const updatedBlog = await api
+    .put(`/api/blogs/${blogToUpdate.id}`)
+    .send(newInfo)
+    .expect(200)
+    .expect("Content-Type", /application\/json/)
+
+  expect(updatedBlog.body.title).not.toEqual(blogToUpdate.title)
+  expect(updatedBlog.body.title).toEqual(newInfo.title)
+  expect(updatedBlog.body.likes).not.toEqual(blogToUpdate.likes)
+})
+
+test("can delete blog", async () => {
+  const blogsAtStart = await helper.blogsInDb()
+  const blogToDelete = blogsAtStart[0]
+
+  await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204)
+
+  const blogsAtEnd = await helper.blogsInDb()
+  expect(blogsAtEnd.length).toEqual(blogsAtStart.length - 1)
+  expect(blogsAtEnd).not.toContain(blogToDelete)
+})
+
 afterAll(async () => {
   await mongoose.connection.close()
 })
