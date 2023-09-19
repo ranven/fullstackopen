@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
 import Blog from "./components/Blog"
 import { Notification } from "./components/Notification"
-
 import blogService from "./services/blogs"
 import loginService from "./services/login"
 
@@ -12,6 +11,9 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [notification, setNotification] = useState("")
   const [error, setError] = useState(false)
+  const [title, setTitle] = useState("")
+  const [author, setAuthor] = useState("")
+  const [url, setUrl] = useState("")
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs))
@@ -42,6 +44,20 @@ const App = () => {
     window.localStorage.clear()
     setUser(null)
     displayNotification("Logged out", false)
+  }
+
+  const handleCreate = async (event) => {
+    event.preventDefault()
+    try {
+      const newBlog = await blogService.createBlog({ title, author, url })
+      setTitle("")
+      setAuthor("")
+      setUrl("")
+      setBlogs(blogs.concat(newBlog))
+      displayNotification(`a new blog ${title} by ${author} added`, false)
+    } catch (exception) {
+      displayNotification("invalid input", true)
+    }
   }
 
   const displayNotification = (message, isError) => {
@@ -85,6 +101,35 @@ const App = () => {
       ))}
     </div>
   )
+  const blogForm = () => (
+    <form onSubmit={handleCreate}>
+      <div>
+        title
+        <input
+          type="text"
+          value={title}
+          onChange={({ target }) => setTitle(target.value)}
+        ></input>
+      </div>
+      <div>
+        author
+        <input
+          type="text"
+          value={author}
+          onChange={({ target }) => setAuthor(target.value)}
+        ></input>
+      </div>
+      <div>
+        url
+        <input
+          type="text"
+          value={url}
+          onChange={({ target }) => setUrl(target.value)}
+        ></input>
+      </div>
+      <button type="submit">create</button>
+    </form>
+  )
 
   return (
     <div>
@@ -98,6 +143,9 @@ const App = () => {
           <button type="submit" onClick={handleLogout}>
             log out
           </button>
+          <h2>create</h2>
+          {blogForm()}
+          <hr />
           {blogList()}
         </div>
       )}
