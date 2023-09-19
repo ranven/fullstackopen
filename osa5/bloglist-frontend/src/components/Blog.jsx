@@ -1,9 +1,25 @@
 import { useState } from "react"
-const Blog = ({ blog }) => {
+const Blog = ({ blog, updateBlog, deleteBlog, isOwner }) => {
   const [visible, setVisible] = useState(false)
 
   const toggleVisible = () => {
     setVisible(!visible)
+  }
+
+  const handleLike = () => {
+    const updatedBlog = {
+      title: blog.title,
+      author: blog.author,
+      url: blog.url,
+      likes: blog.likes + 1,
+    }
+    updateBlog(updatedBlog, blog.id)
+  }
+
+  const handleDelete = () => {
+    if (window.confirm(`Delete blog ${blog.title}?`)) {
+      deleteBlog(blog.id)
+    }
   }
 
   return (
@@ -19,9 +35,16 @@ const Blog = ({ blog }) => {
       <div style={{ display: visible ? "" : "none" }}>
         <p>{blog.url}</p>
         <p>
-          {blog.likes} likes <button onClick={console.log("like")}>like</button>
+          {blog.likes} likes <button onClick={handleLike}>like</button>
         </p>
         <p>{blog.author}</p>
+        {isOwner ? (
+          <>
+            <button onClick={handleDelete}>delete</button>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   )

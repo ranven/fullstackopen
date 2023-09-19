@@ -18,7 +18,13 @@ const App = () => {
   const [createVisible, setCreateVisible] = useState(false)
 
   useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs))
+    blogService.getAll().then((blogs) => {
+      blogs.sort((a, b) => b.likes - a.likes)
+      setBlogs(blogs)
+    })
+  }, [])
+
+  useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedInUser")
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
@@ -64,6 +70,28 @@ const App = () => {
     }
   }
 
+  const updateBlog = async (updatedBlog, blogId) => {
+    try {
+      const newBlog = await blogService.updateBlog(updatedBlog, blogId)
+      const indexOfOld = blogs.findIndex((b) => b.id === blogId)
+      blogs[indexOfOld].likes = newBlog.likes
+      setBlogs(blogs)
+      displayNotification("Liked", false)
+    } catch (exception) {
+      displayNotification("couldn't send like", true)
+    }
+  }
+
+  const deleteBlog = async (blogId) => {
+    try {
+      await blogService.deleteBlog(blogId)
+      setBlogs(blogs.filter((b) => b.id !== blogId))
+      displayNotification(`Deleted blog`, false)
+    } catch (exception) {
+      displayNotification(`couldn't delete blog`, true)
+    }
+  }
+
   const displayNotification = (message, isError) => {
     setError(isError)
     setNotification(message)
@@ -101,7 +129,13 @@ const App = () => {
     <div>
       <h2>Blogs</h2>
       {blogs.map((blog) => (
-        <Blog key={blog.id} blog={blog} />
+        <Blog
+          key={blog.id}
+          blog={blog}
+          updateBlog={updateBlog}
+          deleteBlog={deleteBlog}
+          isOwner={blog.user?.id === user.id}
+        />
       ))}
     </div>
   )
