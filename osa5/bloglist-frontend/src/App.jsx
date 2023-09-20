@@ -16,13 +16,14 @@ const App = () => {
   const [author, setAuthor] = useState("")
   const [url, setUrl] = useState("")
   const [createVisible, setCreateVisible] = useState(false)
+  const [updateBlogList, setUpdateBlogList] = useState(false)
 
   useEffect(() => {
     blogService.getAll().then((blogs) => {
       blogs.sort((a, b) => b.likes - a.likes)
       setBlogs(blogs)
     })
-  }, [])
+  }, [updateBlogList])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedInUser")
@@ -65,6 +66,7 @@ const App = () => {
       setBlogs(blogs.concat(newBlog))
       displayNotification(`a new blog ${title} by ${author} added`, false)
       setCreateVisible(!createVisible)
+      setUpdateBlogList(!updateBlogList)
     } catch (exception) {
       displayNotification("invalid input", true)
     }
@@ -86,9 +88,9 @@ const App = () => {
     try {
       await blogService.deleteBlog(blogId)
       setBlogs(blogs.filter((b) => b.id !== blogId))
-      displayNotification(`Deleted blog`, false)
+      displayNotification("Deleted blog", false)
     } catch (exception) {
-      displayNotification(`couldn't delete blog`, true)
+      displayNotification("couldn't delete blog", true)
     }
   }
 

@@ -1,3 +1,5 @@
+import PropTypes from "prop-types"
+
 import { useState } from "react"
 const Blog = ({ blog, updateBlog, deleteBlog, isOwner }) => {
   const [visible, setVisible] = useState(false)
@@ -26,7 +28,7 @@ const Blog = ({ blog, updateBlog, deleteBlog, isOwner }) => {
     <div className="blog-box">
       <div>
         <p>
-          {blog.title}
+          {blog.title} by {blog.author}
           <button onClick={toggleVisible} style={{ marginLeft: ".5rem" }}>
             {visible ? "hide" : "view"}
           </button>
@@ -37,7 +39,7 @@ const Blog = ({ blog, updateBlog, deleteBlog, isOwner }) => {
         <p>
           {blog.likes} likes <button onClick={handleLike}>like</button>
         </p>
-        <p>{blog.author}</p>
+        <p>{blog.user?.username}</p>
         {isOwner ? (
           <>
             <button onClick={handleDelete}>delete</button>
@@ -48,6 +50,13 @@ const Blog = ({ blog, updateBlog, deleteBlog, isOwner }) => {
       </div>
     </div>
   )
+}
+
+Blog.propTypes = {
+  blog: PropTypes.object.isRequired,
+  updateBlog: PropTypes.func.isRequired,
+  deleteBlog: PropTypes.func.isRequired,
+  isOwner: PropTypes.bool.isRequired,
 }
 
 export default Blog
