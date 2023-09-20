@@ -34,7 +34,7 @@ const Blog = ({ blog, updateBlog, deleteBlog, isOwner }) => {
           </button>
         </p>
       </div>
-      <div style={{ display: visible ? "" : "none" }}>
+      <div className="blog-info" style={{ display: visible ? "" : "none" }}>
         <p>{blog.url}</p>
         <p>
           {blog.likes} likes <button onClick={handleLike}>like</button>
@@ -54,9 +54,9 @@ const Blog = ({ blog, updateBlog, deleteBlog, isOwner }) => {
 
 Blog.propTypes = {
   blog: PropTypes.object.isRequired,
-  updateBlog: PropTypes.func.isRequired,
-  deleteBlog: PropTypes.func.isRequired,
-  isOwner: PropTypes.bool.isRequired,
+  updateBlog: PropTypes.func,
+  deleteBlog: PropTypes.func,
+  isOwner: PropTypes.bool,
 }
 
 export default Blog
