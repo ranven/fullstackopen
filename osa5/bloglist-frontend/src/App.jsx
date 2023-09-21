@@ -76,8 +76,9 @@ const App = () => {
     try {
       const newBlog = await blogService.updateBlog(updatedBlog, blogId)
       const indexOfOld = blogs.findIndex((b) => b.id === blogId)
-      blogs[indexOfOld].likes = newBlog.likes
-      setBlogs(blogs)
+      //blogs[indexOfOld].likes = newBlog.likes
+      //setBlogs(blogs)
+      setUpdateBlogList(!updateBlogList)
       displayNotification("Liked", false)
     } catch (exception) {
       displayNotification("couldn't send like", true)
@@ -132,7 +133,7 @@ const App = () => {
   )
 
   const blogList = () => (
-    <div>
+    <div id="blog-list">
       <h2>Blogs</h2>
       {blogs.map((blog) => (
         <Blog
@@ -170,7 +171,10 @@ const App = () => {
               handleCreate={handleCreate}
             ></BlogForm>
           </div>
-          <button onClick={() => setCreateVisible(!createVisible)}>
+          <button
+            id="create-button"
+            onClick={() => setCreateVisible(!createVisible)}
+          >
             {createVisible ? "cancel" : "new blog"}
           </button>
           <hr />

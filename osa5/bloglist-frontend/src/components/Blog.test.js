@@ -38,7 +38,7 @@ test("Blog displays additional information when clicked", async () => {
   }
 
   const { container } = render(<Blog blog={blog}></Blog>)
-  const infobox = container.querySelector(".blog-info")
+  const infobox = container.querySelector("#blog-info")
   expect(infobox).toHaveStyle({ display: "none" })
 
   const user = userEvent.setup()
@@ -78,9 +78,9 @@ test("When a new blog is submitted, new blog function is called and input is cor
   const mockHandler = jest.fn()
   const form = render(<BlogForm handleCreate={mockHandler} />)
 
-  const title = form.container.querySelector(".title")
-  const author = form.container.querySelector(".author")
-  const url = form.container.querySelector(".url")
+  const title = form.container.querySelector("#title")
+  const author = form.container.querySelector("#author")
+  const url = form.container.querySelector("#url")
 
   fireEvent.change(title, { target: { value: "testing" } })
   fireEvent.change(url, { target: { value: "testing" } })

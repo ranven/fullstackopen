@@ -4,8 +4,8 @@ export const Notification = ({ message, isError }) => {
   }
 
   if (isError) {
-    return <div className="error">{message}</div>
+    return <div id="error">{message}</div>
   }
 
-  return <div className="notification">{message}</div>
+  return <div id="notification">{message}</div>
 }

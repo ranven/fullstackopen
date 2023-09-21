@@ -25,24 +25,33 @@ const Blog = ({ blog, updateBlog, deleteBlog, isOwner }) => {
   }
 
   return (
-    <div className="blog-box">
+    <div id="blog-box">
       <div>
         <p>
           {blog.title} by {blog.author}
-          <button onClick={toggleVisible} style={{ marginLeft: ".5rem" }}>
+          <button
+            id="view-button"
+            onClick={toggleVisible}
+            style={{ marginLeft: ".5rem" }}
+          >
             {visible ? "hide" : "view"}
           </button>
         </p>
       </div>
-      <div className="blog-info" style={{ display: visible ? "" : "none" }}>
+      <div id="blog-info" style={{ display: visible ? "" : "none" }}>
         <p>{blog.url}</p>
         <p>
-          {blog.likes} likes <button onClick={handleLike}>like</button>
+          {blog.likes} likes{" "}
+          <button id="like-button" onClick={handleLike}>
+            like
+          </button>
         </p>
         <p>{blog.user?.username}</p>
         {isOwner ? (
           <>
-            <button onClick={handleDelete}>delete</button>
+            <button id="delete-button" onClick={handleDelete}>
+              delete
+            </button>
           </>
         ) : (
           <></>
