@@ -10,7 +10,6 @@ const blogRouter = require("./controllers/blogs")
 const usersRouter = require("./controllers/users")
 const loginRouter = require("./controllers/login")
 const middleware = require("./utils/middleware")
-
 logger.info("Connecting to", config.DB_URL)
 
 mongoose
@@ -28,6 +27,10 @@ app.use(express.json())
 app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
 
+if (process.env.NODE_ENV === "test") {
+  const testingRouter = require("./controllers/testing")
+  app.use("/api/testing", testingRouter)
+}
 app.use("/api/users", usersRouter)
 app.use("/api/login", loginRouter)
 app.use("/api/blogs", middleware.userExtractor, blogRouter)
