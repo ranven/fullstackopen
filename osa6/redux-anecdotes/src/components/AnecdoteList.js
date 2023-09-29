@@ -6,9 +6,9 @@ const AnecdoteList = () => {
     if (state.filter && state.filter.length > 1) {
       return state.anecdotes
         .filter((a) => a.content.includes(state.filter))
-        .sort((a, b) => b.votes - a.votes)
+        .toSorted((a, b) => b.votes - a.votes)
     }
-    return state.anecdotes.sort((a, b) => b.votes - a.votes)
+    return state.anecdotes.toSorted((a, b) => b.votes - a.votes)
   })
 
   const dispatch = useDispatch()
