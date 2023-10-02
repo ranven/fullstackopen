@@ -1,8 +1,13 @@
 import AnecdoteForm from "./components/AnecdoteForm"
 import Notification from "./components/Notification"
-import { useQuery } from "@tanstack/react-query"
+import {
+  useQuery,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query"
 import axios from "axios"
 import { getAnecdotes } from "./requests"
+import { useState } from "react"
 
 const App = () => {
   const handleVote = (anecdote) => {
@@ -21,12 +26,16 @@ const App = () => {
   }
   const anecdotes = result.data
 
+  const reloadAnecdotes = () => {
+    result.refetch()
+  }
+
   return (
     <div>
       <h3>Anecdote app</h3>
 
       <Notification />
-      <AnecdoteForm />
+      <AnecdoteForm reloadAnecdotes={reloadAnecdotes} />
 
       {anecdotes.map((anecdote) => (
         <div key={anecdote.id}>
