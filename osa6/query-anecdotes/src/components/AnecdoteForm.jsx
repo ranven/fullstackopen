@@ -5,7 +5,7 @@ import { addNew } from "../requests"
 const AnecdoteForm = ({ reloadAnecdotes }) => {
   const queryClient = useQueryClient()
   const newAnecdoteMutation = useMutation(addNew, {
-    onSuccess: async (newAnecdote) => {
+    onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: ["anecdotes"] })
       reloadAnecdotes()
     },
