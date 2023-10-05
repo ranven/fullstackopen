@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react"
 import Blog from "./components/Blog"
-import { Notification } from "./components/Notification"
+import Notification from "./components/Notification"
 import BlogForm from "./components/BlogForm"
 import blogService from "./services/blogs"
 import loginService from "./services/login"
+import { useDispatch } from "react-redux"
+import { setNotification } from "./reducers/notificationReducer"
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [user, setUser] = useState(null)
-  const [notification, setNotification] = useState("")
-  const [error, setError] = useState(false)
   const [title, setTitle] = useState("")
   const [author, setAuthor] = useState("")
   const [url, setUrl] = useState("")
@@ -34,6 +34,8 @@ const App = () => {
     }
   }, [])
 
+  const dispatch = useDispatch()
+
   const handleLogin = async (event) => {
     event.preventDefault()
     try {
@@ -44,7 +46,7 @@ const App = () => {
       setUsername("")
       setPassword("")
     } catch (exception) {
-      displayNotification("wrong credentials", true)
+      dispatch(setNotification("wrong creadentials"))
     }
   }
 
@@ -53,7 +55,7 @@ const App = () => {
     window.localStorage.clear()
     setUser(null)
     setCreateVisible(!createVisible)
-    displayNotification("Logged out", false)
+    dispatch(setNotification("logged out"))
   }
 
   const handleCreate = async (event) => {
@@ -64,24 +66,21 @@ const App = () => {
       setAuthor("")
       setUrl("")
       setBlogs(blogs.concat(newBlog))
-      displayNotification(`a new blog ${title} by ${author} added`, false)
+      dispatch(setNotification(`a new blog ${title} by ${author} added`))
       setCreateVisible(!createVisible)
       setUpdateBlogList(!updateBlogList)
     } catch (exception) {
-      displayNotification("invalid input", true)
+      dispatch(setNotification("Invalid input"))
     }
   }
 
   const updateBlog = async (updatedBlog, blogId) => {
     try {
-      const newBlog = await blogService.updateBlog(updatedBlog, blogId)
-      const indexOfOld = blogs.findIndex((b) => b.id === blogId)
-      //blogs[indexOfOld].likes = newBlog.likes
-      //setBlogs(blogs)
+      await blogService.updateBlog(updatedBlog, blogId)
       setUpdateBlogList(!updateBlogList)
-      displayNotification("Liked", false)
+      dispatch(setNotification("Liked"))
     } catch (exception) {
-      displayNotification("couldn't send like", true)
+      dispatch(setNotification("Couldn't send like"))
     }
   }
 
@@ -89,20 +88,19 @@ const App = () => {
     try {
       await blogService.deleteBlog(blogId)
       setBlogs(blogs.filter((b) => b.id !== blogId))
-      displayNotification("Deleted blog", false)
+      dispatch(setNotification("deleted blog"))
     } catch (exception) {
-      displayNotification("couldn't delete blog", true)
+      dispatch(setNotification("couldn't delete blog"))
     }
   }
 
-  const displayNotification = (message, isError) => {
+  /*   const displayNotification = (message, isError) => {
     setError(isError)
     setNotification(message)
     setTimeout(() => {
       setNotification("")
       setError(false)
-    }, 4000)
-  }
+    }, 4000) */
 
   const loginForm = () => (
     <form onSubmit={handleLogin}>
@@ -151,7 +149,7 @@ const App = () => {
     <div>
       <h1>Blogs</h1>
 
-      <Notification message={notification} isError={error}></Notification>
+      <Notification />
       {!user && loginForm()}
       {user && (
         <div>
