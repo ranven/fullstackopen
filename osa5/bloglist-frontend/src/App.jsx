@@ -6,7 +6,7 @@ import blogService from "./services/blogs"
 import loginService from "./services/login"
 import { useDispatch } from "react-redux"
 import { setNotification } from "./reducers/notificationReducer"
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
 import Users from "./components/Users"
 
 const App = () => {
@@ -154,20 +154,37 @@ const App = () => {
     </div>
   )
 
+  const Menu = () => {
+    const style = {
+      paddingRight: 5,
+      background: "light-gray",
+    }
+    return (
+      <div>
+        <Link to="/" style={style}>
+          blogs
+        </Link>
+        <Link to="/users" style={style}>
+          users
+        </Link>
+        {user && (
+          <div>
+            <p>{user.name} logged in</p>
+            <button type="submit" onClick={handleLogout}>
+              log out
+            </button>
+          </div>
+        )}
+      </div>
+    )
+  }
+
   return (
-    <Router>
+    <div>
       <h1>Blogs</h1>
 
       <Notification />
-
-      {user && (
-        <div>
-          <p>{user.name} logged in</p>
-          <button type="submit" onClick={handleLogout}>
-            log out
-          </button>
-        </div>
-      )}
+      <Menu />
 
       <Routes>
         <Route
@@ -193,7 +210,7 @@ const App = () => {
         />
         <Route path="/users/*" element={<Users />} />
       </Routes>
-    </Router>
+    </div>
   )
 }
 
