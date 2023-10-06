@@ -6,6 +6,8 @@ import blogService from "./services/blogs"
 import loginService from "./services/login"
 import { useDispatch } from "react-redux"
 import { setNotification } from "./reducers/notificationReducer"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import Users from "./components/Users"
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -94,14 +96,6 @@ const App = () => {
     }
   }
 
-  /*   const displayNotification = (message, isError) => {
-    setError(isError)
-    setNotification(message)
-    setTimeout(() => {
-      setNotification("")
-      setError(false)
-    }, 4000) */
-
   const loginForm = () => (
     <form onSubmit={handleLogin}>
       <div>
@@ -145,41 +139,61 @@ const App = () => {
     </div>
   )
 
+  const createForm = () => (
+    <div style={{ display: createVisible ? "" : "none" }}>
+      <h2>create</h2>
+      <BlogForm
+        author={author}
+        title={title}
+        url={url}
+        handleAuthorChange={({ target }) => setAuthor(target.value)}
+        handleTitleChange={({ target }) => setTitle(target.value)}
+        handleUrlChange={({ target }) => setUrl(target.value)}
+        handleCreate={handleCreate}
+      ></BlogForm>
+    </div>
+  )
+
   return (
-    <div>
+    <Router>
       <h1>Blogs</h1>
 
       <Notification />
-      {!user && loginForm()}
+
       {user && (
         <div>
           <p>{user.name} logged in</p>
           <button type="submit" onClick={handleLogout}>
             log out
           </button>
-          <div style={{ display: createVisible ? "" : "none" }}>
-            <h2>create</h2>
-            <BlogForm
-              author={author}
-              title={title}
-              url={url}
-              handleAuthorChange={({ target }) => setAuthor(target.value)}
-              handleTitleChange={({ target }) => setTitle(target.value)}
-              handleUrlChange={({ target }) => setUrl(target.value)}
-              handleCreate={handleCreate}
-            ></BlogForm>
-          </div>
-          <button
-            id="create-button"
-            onClick={() => setCreateVisible(!createVisible)}
-          >
-            {createVisible ? "cancel" : "new blog"}
-          </button>
-          <hr />
-          {blogList()}
         </div>
       )}
-    </div>
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div>
+              {!user && loginForm()}
+              {user && (
+                <div>
+                  {createForm()}
+                  <button
+                    id="create-button"
+                    onClick={() => setCreateVisible(!createVisible)}
+                  >
+                    {createVisible ? "cancel" : "new blog"}
+                  </button>
+                  <hr />
+                  {blogList()}
+                </div>
+              )}
+            </div>
+          }
+        />
+        <Route path="/users" element={<Users />} />
+      </Routes>
+    </Router>
   )
 }
 
