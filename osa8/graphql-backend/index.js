@@ -172,6 +172,7 @@ const resolvers = {
       let author = authors.find((a) => a.name === args.name)
       if (author) {
         author = { ...author, born: args.setBornTo }
+        authors = authors.map((a) => (a.name === author.name ? author : a))
       }
       return author
     },
