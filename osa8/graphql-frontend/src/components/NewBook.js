@@ -1,12 +1,33 @@
-import { useState } from 'react'
+import { useState } from "react"
+import { useMutation, gql } from "@apollo/client"
 
+const CREATE_BOOK = gql`
+  mutation createBook(
+    $title: String!
+    $published: Int!
+    $author: String!
+    $genres: [String!]!
+  ) {
+    addBook(
+      title: $title
+      published: $published
+      author: $author
+      genres: $genres
+    ) {
+      title
+      published
+      author
+      genres
+    }
+  }
+`
 const NewBook = (props) => {
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [published, setPublished] = useState('')
-  const [genre, setGenre] = useState('')
+  const [title, setTitle] = useState("")
+  const [author, setAuthor] = useState("")
+  const [published, setPublished] = useState("")
+  const [genre, setGenre] = useState("")
   const [genres, setGenres] = useState([])
-
+  const [createBook] = useMutation(CREATE_BOOK)
   if (!props.show) {
     return null
   }
@@ -14,18 +35,18 @@ const NewBook = (props) => {
   const submit = async (event) => {
     event.preventDefault()
 
-    console.log('add book...')
+    createBook({ variables: { title, author, published, genres } })
 
-    setTitle('')
-    setPublished('')
-    setAuthor('')
+    setTitle("")
+    setPublished("")
+    setAuthor("")
     setGenres([])
-    setGenre('')
+    setGenre("")
   }
 
   const addGenre = () => {
     setGenres(genres.concat(genre))
-    setGenre('')
+    setGenre("")
   }
 
   return (
@@ -50,7 +71,7 @@ const NewBook = (props) => {
           <input
             type="number"
             value={published}
-            onChange={({ target }) => setPublished(target.value)}
+            onChange={({ target }) => setPublished(Number(target.value))}
           />
         </div>
         <div>
@@ -62,7 +83,7 @@ const NewBook = (props) => {
             add genre
           </button>
         </div>
-        <div>genres: {genres.join(' ')}</div>
+        <div>genres: {genres.join(" ")}</div>
         <button type="submit">create book</button>
       </form>
     </div>

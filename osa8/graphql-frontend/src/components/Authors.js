@@ -11,7 +11,7 @@ const ALL_AUTHORS = gql`
 `
 
 const Authors = (props) => {
-  const authors = useQuery(ALL_AUTHORS)
+  const authors = useQuery(ALL_AUTHORS, { pollInterval: 5000 })
 
   if (!props.show) {
     return null
