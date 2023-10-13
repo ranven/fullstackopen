@@ -49,9 +49,10 @@ const Authors = (props) => {
         <label>Choose the author</label>
         <select
           name="activeAuthor"
+          defaultValue={"default"}
           onChange={({ target }) => setActiveAuthor(target.value)}
         >
-          <option label=" "></option>{" "}
+          <option disabled label="Select..." value={"default"}></option>{" "}
           {authors.data.allAuthors.map((author) => (
             <option value={author.name} key={author.name}>
               {author.name}
