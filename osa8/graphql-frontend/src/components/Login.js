@@ -55,7 +55,7 @@ const Login = ({ setError, setToken, show }) => {
           />
         </div>
 
-        <button type="submit">login</button>
+        <button type="submit">submit</button>
       </form>
     </div>
   )

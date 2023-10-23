@@ -6,7 +6,7 @@ import Login from "./components/Login"
 import { useApolloClient } from "@apollo/client"
 
 const App = () => {
-  const [page, setPage] = useState("authors")
+  const [page, setPage] = useState("login")
   const [token, setToken] = useState(null)
   const [error, setError] = useState(null)
   const client = useApolloClient()
@@ -17,15 +17,6 @@ const App = () => {
     client.resetStore()
   }
 
-  /*   if (!token) {
-    return (
-      <div>
-        <p>{error}</p>
-        <button onClick={() => setPage("login")}>login</button>
-      </div>
-    )
-  } */
-
   const displayError = (err) => {
     setError(err)
     setTimeout(() => {
@@ -35,17 +26,17 @@ const App = () => {
 
   return (
     <div>
-      <div>
-        <p>{error}</p>
-        <button onClick={() => setPage("authors")}>authors</button>
-        <button onClick={() => setPage("books")}>books</button>
-        <button onClick={() => setPage("add")}>add book</button>
-        {token ? (
+      {token ? (
+        <div>
+          <p>{error}</p>
+          <button onClick={() => setPage("authors")}>authors</button>
+          <button onClick={() => setPage("books")}>books</button>
+          <button onClick={() => setPage("add")}>add book</button>
           <button onClick={() => logout()}>logout</button>
-        ) : (
-          <button onClick={() => setPage("login")}>login</button>
-        )}
-      </div>
+        </div>
+      ) : (
+        <button onClick={() => setPage("login")}>login</button>
+      )}
 
       <Authors show={page === "authors"} />
 
