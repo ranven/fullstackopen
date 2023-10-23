@@ -106,7 +106,10 @@ const resolvers = {
     },
   },
   Author: {
-    bookCount: (root) => Book.find({ author: root.name }).countDocuments(),
+    bookCount: async (root) => {
+      let author = await Author.findOne({ name: root.name })
+      return await Book.find({ author: author.id }).countDocuments()
+    },
   },
   Mutation: {
     addBook: async (root, args, context) => {
