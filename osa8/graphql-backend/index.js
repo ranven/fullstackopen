@@ -92,7 +92,6 @@ const resolvers = {
       return genres
     },
     allBooks: async (root, args) => {
-      console.log(args)
       let books = await Book.find({}).populate("author")
       if (args.author && args.genre) {
         return books.filter(

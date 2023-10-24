@@ -1,5 +1,5 @@
 import { useQuery, gql } from "@apollo/client"
-import { ALL_BOOKS, ALL_GENRES } from "../queries"
+import { ALL_BOOKS, ALL_GENRES, USER } from "../queries"
 import { useState, useEffect } from "react"
 
 const Books = (props) => {
@@ -10,8 +10,6 @@ const Books = (props) => {
   useEffect(() => {
     books.refetch({ genre: selectedGenre })
   }, [books, selectedGenre])
-
-  useEffect(() => {}, [books.data])
 
   if (!props.show) {
     return null
