@@ -1,21 +1,30 @@
 import { useQuery, gql } from "@apollo/client"
-import { ALL_BOOKS } from "../queries"
+import { ALL_BOOKS, ALL_GENRES } from "../queries"
+import { useState, useEffect } from "react"
 
 const Books = (props) => {
-  const books = useQuery(ALL_BOOKS, { pollInterval: 5000 })
+  const [selectedGenre, setSelectedGenre] = useState("")
+  const books = useQuery(ALL_BOOKS)
+  const genres = useQuery(ALL_GENRES)
+
+  useEffect(() => {
+    books.refetch({ genre: selectedGenre })
+  }, [books, selectedGenre])
+
+  useEffect(() => {}, [books.data])
 
   if (!props.show) {
     return null
   }
 
-  if (books.loading) {
+  if (books.loading || genres.loading) {
     return <div>loading...</div>
   }
 
   return (
     <div>
       <h2>books</h2>
-
+      <p>in genre {selectedGenre ? selectedGenre : "all"}</p>
       <table>
         <tbody>
           <tr>
@@ -32,6 +41,20 @@ const Books = (props) => {
           ))}
         </tbody>
       </table>
+      <div>
+        {genres.data.allGenres.map((g) => (
+          <button key={g} value={g} onClick={() => setSelectedGenre(g)}>
+            {g}
+          </button>
+        ))}
+        <button
+          key={"reset"}
+          value={"reset"}
+          onClick={() => setSelectedGenre("")}
+        >
+          all
+        </button>
+      </div>
     </div>
   )
 }

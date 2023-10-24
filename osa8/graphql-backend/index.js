@@ -54,6 +54,7 @@ const typeDefs = `
     authorCount: Int!
     allBooks(author: String, genre: String): [Book!]!
     allAuthors: [Author!]!
+    allGenres: [String]
     me: User
   }
 
@@ -86,7 +87,12 @@ const resolvers = {
   Query: {
     bookCount: async () => Book.collection.countDocuments(),
     authorCount: async () => Author.collection.countDocuments(),
+    allGenres: async (root, args) => {
+      let genres = await Book.distinct("genres")
+      return genres
+    },
     allBooks: async (root, args) => {
+      console.log(args)
       let books = await Book.find({}).populate("author")
       if (args.author && args.genre) {
         return books.filter(

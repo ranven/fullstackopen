@@ -7,7 +7,7 @@ import { useApolloClient } from "@apollo/client"
 
 const App = () => {
   const [page, setPage] = useState("login")
-  const [token, setToken] = useState(null)
+  const [token, setToken] = useState(localStorage.getItem("user-token"))
   const [error, setError] = useState(null)
   const client = useApolloClient()
 
