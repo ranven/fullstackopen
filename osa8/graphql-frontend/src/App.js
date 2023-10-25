@@ -10,7 +10,7 @@ import { BOOK_ADDED } from "./queries"
 const App = () => {
   const [page, setPage] = useState("login")
   const [token, setToken] = useState(localStorage.getItem("user-token"))
-  const [error, setError] = useState(null)
+  const [message, setMessage] = useState(null)
   const client = useApolloClient()
 
   const logout = () => {
@@ -19,17 +19,19 @@ const App = () => {
     client.resetStore()
   }
 
-  const displayError = (err) => {
-    setError(err)
+  const displayNotification = (message) => {
+    setMessage(message)
     setTimeout(() => {
-      setError("")
+      setMessage("")
     }, 4000)
   }
 
   useSubscription(BOOK_ADDED, {
     onData: ({ data }) => {
       const book = data.data?.bookAdded
-      window.alert(`New book added: ${book.title} by ${book.author.name}`)
+      displayNotification(
+        `New book added: ${book.title} by ${book.author.name}`
+      )
     },
   })
 
@@ -37,7 +39,7 @@ const App = () => {
     <div>
       {token ? (
         <div>
-          <p>{error}</p>
+          <p>{message}</p>
           <button onClick={() => setPage("authors")}>authors</button>
           <button onClick={() => setPage("books")}>books</button>
           <button onClick={() => setPage("recommend")}>recommend</button>
@@ -55,11 +57,11 @@ const App = () => {
 
       <Recommend show={page === "recommend"} />
 
-      <NewBook show={page === "add"} setError={displayError} />
+      <NewBook show={page === "add"} setError={displayNotification} />
 
       <Login
         show={page === "login"}
-        setError={displayError}
+        setError={displayNotification}
         setToken={setToken}
       />
     </div>
