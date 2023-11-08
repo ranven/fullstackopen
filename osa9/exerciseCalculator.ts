@@ -1,4 +1,4 @@
-interface Result {
+export interface Result {
   periodLength: number
   trainingDays: number
   success: boolean
@@ -57,5 +57,29 @@ const calculateExercises = (hours: number[], target: number): Result => {
     ratingDescription: rating.ratingDescription,
     target,
     average: total / periodLength,
+  }
+}
+
+const args = process.argv.slice(2)
+
+if (args.length < 2) {
+  console.log(
+    "Too few arguments. Usage: npm run calculateExercises <space-separated hours> <target>"
+  )
+} else {
+  let hoursArr: number[] = []
+
+  for (let i = 1; i < args.length; i++) {
+    let n = args[i].split(" ").map(Number)
+    hoursArr.push(n[0])
+  }
+
+  const target = Number(args[0])
+
+  if (isNaN(target) || hoursArr.some(isNaN)) {
+    console.log("Provided values were not numbers")
+  } else {
+    const result = calculateExercises(hoursArr, target)
+    console.log(result)
   }
 }
