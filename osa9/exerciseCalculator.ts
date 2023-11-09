@@ -34,7 +34,7 @@ const addRating = (target: number, total: number): Rating => {
   }
 };
 
-const calculateExercises = (hours: number[], target: number): Result => {
+export const calculateExercises = (hours: number[], target: number): Result => {
   let trainingDays = 0;
   let periodLength = 0;
   let total = 0;
@@ -60,7 +60,7 @@ const calculateExercises = (hours: number[], target: number): Result => {
   };
 };
 
-const args = process.argv.slice(2);
+/* const args = process.argv.slice(2);
 
 if (args.length < 2) {
   console.log(
@@ -83,3 +83,4 @@ if (args.length < 2) {
     console.log(result);
   }
 }
+ */
