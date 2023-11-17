@@ -1,4 +1,4 @@
-import { NonSensitivePatient, Patient } from "../types";
+import { NonSensitivePatient } from "../types";
 
 const data = [
     {
@@ -47,8 +47,5 @@ const nonSensitivePatientData: NonSensitivePatient[] = [
     ...data
 ];
 
-const PatientData: Patient[] = [
-    ...data
-];
 
-export default {nonSensitivePatientData, PatientData};
+export default nonSensitivePatientData;
