@@ -1,3 +1,5 @@
+import { NonSensitivePatient, Patient } from "../types";
+
 const data = [
     {
         "id": "d2773336-f723-11e9-8f0b-362b9e155667",
@@ -41,4 +43,12 @@ const data = [
     }
 ];
 
-export default data;
+const nonSensitivePatientData: NonSensitivePatient[] = [
+    ...data
+];
+
+const PatientData: Patient[] = [
+    ...data
+];
+
+export default {nonSensitivePatientData, PatientData};
