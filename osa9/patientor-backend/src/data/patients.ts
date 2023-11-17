@@ -1,5 +1,5 @@
 import { NonSensitivePatient } from "../types";
-
+import toNewPatientEntry from "../utils";
 const data = [
     {
         "id": "d2773336-f723-11e9-8f0b-362b9e155667",
@@ -47,5 +47,10 @@ const nonSensitivePatientData: NonSensitivePatient[] = [
     ...data
 ];
 
+const patients: NonSensitivePatient[] = nonSensitivePatientData.map(obj => {
+    const object = toNewPatientEntry(obj) as NonSensitivePatient;
+    object.id = obj.id;
+    return object;
+});
 
-export default nonSensitivePatientData;
+export default patients;
