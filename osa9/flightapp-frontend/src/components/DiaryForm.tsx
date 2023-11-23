@@ -96,15 +96,18 @@ const AddDiaryForm = ({ onSubmit }: Props) => {
         </Typography>
       </Box>
       <form onSubmit={addDiary}>
+        <InputLabel style={{ marginTop: 20 }}>Date</InputLabel>
+
         <TextField
-          label="date"
+          type="date"
           fullWidth
           value={date}
           onChange={({ target }) => setDate(target.value)}
         />
+        <InputLabel style={{ marginTop: 20 }}>Comment</InputLabel>
 
         <TextField
-          label="Comment"
+          type="text"
           fullWidth
           value={comment}
           onChange={({ target }) => setComment(target.value)}
