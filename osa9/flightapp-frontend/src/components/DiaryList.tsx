@@ -1,24 +1,45 @@
-import { NonSensitiveDiaryEntry } from "../types";
+import {
+  Box,
+  Table,
+  TableHead,
+  Typography,
+  TableCell,
+  TableRow,
+  TableBody,
+} from '@mui/material';
+import { NonSensitiveDiaryEntry } from '../types';
 
 interface Props {
-    diaries: NonSensitiveDiaryEntry[]
+  diaries: NonSensitiveDiaryEntry[];
 }
 
-const DiaryListPage = ({diaries} : Props ) => {
+const DiaryListPage = ({ diaries }: Props) => {
+  return (
+    <Box>
+      <Typography align="center" variant="h6">
+        Diary entries
+      </Typography>
 
-    return ( 
-        <div>
-            <h3>Diary Entries</h3>
-            
-                {Object.values(diaries).map((diary: NonSensitiveDiaryEntry) => (
-                    <div key={diary.id}>
-                        <h4>{diary.date}</h4>
-                        <p>{diary.weather}</p>
-                        <p>{diary.visibility}</p>
-                    </div>
-                ))}
-        </div>
-    );
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Date</TableCell>
+            <TableCell>Weather</TableCell>
+            <TableCell>Visibility</TableCell>
+          </TableRow>
+        </TableHead>
+      </Table>
+      <TableBody>
+        {Object.values(diaries).map((diary: NonSensitiveDiaryEntry) => (
+          <TableRow key={diary.id}>
+            <TableCell>{diary.date}</TableCell>
+            <TableCell>{diary.weather}</TableCell>
+            <TableCell>{diary.visibility}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Box>
+  );
 };
 
 export default DiaryListPage;
