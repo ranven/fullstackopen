@@ -21,10 +21,11 @@ const getPatients = (): NonSensitivePatient[] => {
 
 const getPatient = (id: string): Patient[] => {
   return patients
-    .map(({ id, name, occupation, gender, dateOfBirth, entries }) => ({
+    .map(({ id, name, occupation, ssn, gender, dateOfBirth, entries }) => ({
       id,
       name,
       occupation,
+      ssn,
       gender,
       dateOfBirth,
       entries,
