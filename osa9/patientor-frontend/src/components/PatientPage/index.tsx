@@ -1,14 +1,16 @@
 import { Box, Typography } from '@mui/material';
-import { Entry, Gender, Patient } from '../../types';
+import { Diagnosis, Entry, Gender, Patient } from '../../types';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import patientService from '../../services/patients';
+import diagnosisService from '../../services/diagnoses';
 import FemaleIcon from '@mui/icons-material/Female';
 import MaleIcon from '@mui/icons-material/Male';
 import AndroidIcon from '@mui/icons-material/Android';
 
 const PatientPage = () => {
   const [patient, setPatient] = useState<Patient>();
+  const [diagnoses, setDiagnoses] = useState<Diagnosis[]>();
   const { id } = useParams();
 
   useEffect(() => {
@@ -18,7 +20,12 @@ const PatientPage = () => {
         setPatient(patient);
       }
     };
+    const fetchDiagnoses = async () => {
+      const diagnoses = await diagnosisService.getAll();
+      setDiagnoses(diagnoses);
+    };
     void fetchPatient();
+    void fetchDiagnoses();
   }, []);
 
   const genderIcon = (gender: Gender | undefined) => {
@@ -30,6 +37,12 @@ const PatientPage = () => {
       default:
         return <AndroidIcon />;
     }
+  };
+
+  const findDiagnosis = (diagnosisCode: string) => {
+    return diagnoses?.find((diagnosis) => {
+      return diagnosis.code === diagnosisCode;
+    });
   };
 
   return (
@@ -52,7 +65,9 @@ const PatientPage = () => {
             </p>
             {entry.diagnosisCodes?.map((diagnosisCode: string) => (
               <ul>
-                <li>{diagnosisCode}</li>
+                <li>
+                  {diagnosisCode + ' ' + findDiagnosis(diagnosisCode)?.name}
+                </li>
               </ul>
             ))}
           </div>
