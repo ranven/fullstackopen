@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import { Gender, Patient } from '../../types';
+import { Entry, Gender, Patient } from '../../types';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import patientService from '../../services/patients';
@@ -41,6 +41,22 @@ const PatientPage = () => {
         <p>gender: {patient?.gender}</p>
         <p>ssh: {patient?.ssn}</p>
         <p>occupation: {patient?.occupation}</p>
+
+        <Typography align="center" variant="h6">
+          entries
+        </Typography>
+        {patient?.entries?.map((entry: Entry) => (
+          <div>
+            <p>
+              <b>{entry.date}</b> {entry.description}
+            </p>
+            {entry.diagnosisCodes?.map((diagnosisCode: string) => (
+              <ul>
+                <li>{diagnosisCode}</li>
+              </ul>
+            ))}
+          </div>
+        ))}
       </Box>
     </div>
   );
