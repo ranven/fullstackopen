@@ -53,10 +53,10 @@ interface HealthCheckEntry extends BaseEntry {
 export type NewBaseEntry = Omit<BaseEntry, 'id'>;
 
 export enum HealthCheckRating {
-  'Healthy' = 0,
-  'LowRisk' = 1,
-  'HighRisk' = 2,
-  'CriticalRisk' = 3,
+  Healthy = 0,
+  LowRisk = 1,
+  HighRisk = 2,
+  CriticalRisk = 3,
 }
 
 export interface Patient {
@@ -81,4 +81,5 @@ export type Entry =
 type UnionOmit<T, K extends string | number | symbol> = T extends unknown
   ? Omit<T, K>
   : never;
+
 export type NoIdEntry = UnionOmit<Entry, 'id'>;
