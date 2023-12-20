@@ -1,5 +1,5 @@
 import { NonSensitivePatient, Patient, Gender } from '../types';
-import toNewPatientEntry from '../utils';
+import entryParser from '../utils';
 
 const data: Patient[] = [
   {
@@ -117,7 +117,9 @@ const nonSensitivePatientData: NonSensitivePatient[] = [...data];
 
 const nonSensitivePatients: NonSensitivePatient[] = nonSensitivePatientData.map(
   (obj) => {
-    const object = toNewPatientEntry(obj) as unknown as NonSensitivePatient;
+    const object = entryParser.toNewPatientEntry(
+      obj
+    ) as unknown as NonSensitivePatient;
     object.id = obj.id;
     return object;
   }
