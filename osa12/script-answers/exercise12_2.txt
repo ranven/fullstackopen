@@ -1,0 +1,126 @@
+Script started on 2024-03-21 16:04:25+02:00 [TERM="xterm-256color" TTY="/dev/pts/4" COLUMNS="101" LINES="55"]
+[1m[7m%[27m[1m[0m                                                                                                    
+ 
+]2;verave@lx0-fuxi210:~]1;~]7;file://lx0-fuxi210/home/verave\
+[0m[27m[24m[J[01;32m➜  [36m~[00m [K[?1h=[?2004h[7mdocker run -it ubuntu bash[27m
+
+[K[A[5C[27md[27mo[27mc[27mk[27me[27mr[27m [27mr[27mu[27mn[27m [27m-[27mi[27mt[27m [27mu[27mb[27mu[27mn[27mt[27mu[27m [27mb[27ma[27ms[27mh[1B
+[K[?1l>[?2004l
+
+]2;docker run -it ubuntu bash]1;dockerUnable to find image 'ubuntu:latest' locally
+latest: Pulling from library/ubuntu
+
+[1A[2K
+bccd10f490ab: Pulling fs layer 
+[1B[1A[2K
+bccd10f490ab: Downloading  310.6kB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Downloading  1.534MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Downloading  4.311MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Downloading  6.802MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Downloading  9.575MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Downloading  12.66MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Downloading  15.73MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Downloading   18.8MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Downloading  21.87MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Downloading  24.98MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Downloading  28.04MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Verifying Checksum 
+[1B[1A[2K
+bccd10f490ab: Download complete 
+[1B[1A[2K
+bccd10f490ab: Extracting  327.7kB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  1.638MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  2.621MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  3.604MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  4.588MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  5.898MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  6.881MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  7.537MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  7.864MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  8.192MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  8.847MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  9.503MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  10.16MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting   11.8MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  13.43MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting   15.4MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  17.04MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  18.68MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  20.32MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting   21.3MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  22.61MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  24.25MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting   24.9MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  25.56MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  25.89MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  26.87MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  27.85MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  28.18MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  28.51MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  29.16MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  29.49MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Extracting  29.54MB/29.54MB
+[1B[1A[2K
+bccd10f490ab: Pull complete 
+[1BDigest: sha256:77906da86b60585ce12215807090eb327e7386c8fafb5402369e421f44eff17e
+Status: Downloaded newer image for ubuntu:latest
+[?2004h]0;root@5d5cea741478: /root@5d5cea741478:/# 
+[?2004l
+[?2004h]0;root@5d5cea741478: /root@5d5cea741478:/# k  
+[?2004l
+[?2004h]0;root@5d5cea741478: /root@5d5cea741478:/# w mkdir /us         mkdir /usr/src/app
+[?2004l
+[?2004h]0;root@5d5cea741478: /root@5d5cea741478:/# touch /usr/src/app/index.js
+[?2004l
+[?2004h]0;root@5d5cea741478: /root@5d5cea741478:/# [Kexit
+[?2004l
+exit
+[1m[7m%[27m[1m[0m                                                                                                    
+ 
+]2;verave@lx0-fuxi210:~]1;~]7;file://lx0-fuxi210/home/verave\
+[0m[27m[24m[J[01;32m➜  [36m~[00m [K[?1h=[?2004heexit[?1l>[?2004l
+
+]2;exit]1;exit
+Script done on 2024-03-21 16:07:30+02:00 [COMMAND_EXIT_CODE="0"]
